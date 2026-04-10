@@ -1,0 +1,81 @@
+openapi: "3.0.3"
+info:
+  title: <Project Name>
+  version: "0.1.0"
+  description: <Brief project description>
+  contact:
+    name: <Team or maintainer name>
+    url: <Repository URL>
+  license:
+    name: <License>
+    url: <License URL>
+
+servers:
+  - url: https://api.example.com
+    description: Production
+  - url: http://localhost:3000
+    description: Development
+
+tags:
+  - name: <Tag 1 — e.g., "Authentication">
+    description: <What this group of endpoints covers>
+  - name: <Tag 2>
+    description: <Description>
+
+paths: {}
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas: {}
+
+  responses:
+    BadRequest:
+      description: Bad request — invalid input or missing required fields
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          type: object
+          description: Additional context about the error
+      required:
+        - error
+        - code
