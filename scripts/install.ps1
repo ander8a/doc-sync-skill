@@ -17,7 +17,7 @@ $ProgressPreference = "SilentlyContinue"
 $SkillName = "doc-sync"
 $RepoOwner = if ($env:REPO_OWNER) { $env:REPO_OWNER } else { "ander8a" }
 $RepoName = if ($env:REPO_NAME) { $env:REPO_NAME } else { "doc-sync-skill" }
-$Branch = $env:BRANCH -or "main"
+$Branch = if ($env:BRANCH) { $env:BRANCH } else { "main" }
 $RawBase = "https://raw.githubusercontent.com/${RepoOwner}/${RepoName}/${Branch}"
 
 # User-level skill directories (one per supported agent)
